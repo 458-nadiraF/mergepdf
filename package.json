@@ -1,0 +1,14 @@
+{
+  "name": "pdf-merger",
+  "version": "1.0.0",
+  "description": "Simple PDF merging tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "generate": "node create_dummy.js",
+    "test": "node create_dummy.js && node index.js"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1"
+  }
+}

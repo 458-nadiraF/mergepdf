@@ -3,9 +3,10 @@
 A simple Node.js application to merge two PDF files (`A.pdf` and `B.pdf`) into a single output file (`merged.pdf`). This project uses the `pdf-lib` library for efficient PDF manipulation.
 
 ## Features
-- Generates dummy PDF files for testing purposes.
-- Merges two PDFs sequentially into one document.
-- Lightweight and fast execution using `pdf-lib`.
+- **Web Interface**: Simple UI to upload and merge PDF files.
+- **REST API**: Endpoint `/merge` to programmatically merge PDFs.
+- **CLI Support**: Scripts to run merging locally via command line.
+- **Fast Processing**: Uses `pdf-lib` for efficient in-memory manipulation.
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) (v14 or higher recommended)
@@ -25,20 +26,35 @@ A simple Node.js application to merge two PDF files (`A.pdf` and `B.pdf`) into a
 
 ## Usage
 
-### 1. Generate Test PDFs (Optional)
-If you don't have input files, you can generate sample PDFs (`A.pdf` with 10 pages and `B.pdf` with 3 pages) using the helper script:
+### Web Service (Recommended)
+Start the web server:
 ```bash
-node create_dummy.js
+npm start
+```
+Then open [http://localhost:3000](http://localhost:3000) in your browser. Upload two PDF files and click "Merge PDFs" to download the result.
+
+### Command Line Interface
+If you prefer using the CLI with local files (`A.pdf` and `B.pdf`):
+```bash
+npm run cli
 ```
 
-### 2. Merge PDFs
-Run the main script to merge `A.pdf` and `B.pdf`:
+### Generate Test PDFs
+To create sample `A.pdf` (10 pages) and `B.pdf` (3 pages) for testing:
 ```bash
-node index.js
+npm run generate
 ```
-The merged file will be saved as `merged.pdf` in the same directory.
+
+## Deployment
+This project is ready to be deployed on platforms like Render, Railway, or Heroku.
+
+1. Push your code to GitHub.
+2. Connect your repository to your hosting provider.
+3. The build command is `npm install`.
+4. The start command is `npm start`.
 
 ## Project Structure
-- `index.js`: The main script that performs the PDF merging logic.
-- `create_dummy.js`: A utility script to create sample PDF files for testing.
-- `package.json`: Contains project metadata and dependencies.
+- `server.js`: Express.js server handling HTTP requests and file uploads.
+- `public/index.html`: Frontend UI for the web service.
+- `index.js`: CLI script for local PDF merging.
+- `create_dummy.js`: Utility to generate test PDFs.

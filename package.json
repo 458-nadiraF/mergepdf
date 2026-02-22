@@ -4,7 +4,8 @@
   "description": "Simple PDF merging tool",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
+    "cli": "node index.js",
     "generate": "node create_dummy.js",
     "test": "node create_dummy.js && node index.js"
   },

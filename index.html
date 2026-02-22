@@ -6,145 +6,223 @@
     <title>PDF Merger - GitHub Pages</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
         }
         h1 {
             color: #333;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
         }
         .upload-area {
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            padding: 40px;
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 40px 20px;
             text-align: center;
             margin-bottom: 20px;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background: #fafafa;
         }
         .upload-area:hover {
-            border-color: #007bff;
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-2px);
         }
         .upload-area.dragover {
-            border-color: #007bff;
-            background-color: #f8f9fa;
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: scale(1.02);
         }
         .file-input {
             display: none;
         }
         .upload-label {
-            display: block;
-            padding: 10px 20px;
-            background: #007bff;
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            margin-bottom: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
         .file-list {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 30px 0;
+            padding: 20px;
             background: #f8f9fa;
-            border-radius: 5px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
         }
         .file-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .file-item:last-child {
+            border-bottom: none;
         }
         .merge-btn {
             width: 100%;
-            padding: 15px;
-            background: #28a745;
+            padding: 18px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
         }
-        .merge-btn:hover {
-            background: #218838;
+        .merge-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
         }
         .merge-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
+            box-shadow: none;
         }
         .status {
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: center;
+            font-weight: 500;
         }
         .status.success {
             background: #d4edda;
             color: #155724;
+            border: 1px solid #c3e6cb;
         }
         .status.error {
             background: #f8d7da;
             color: #721c24;
+            border: 1px solid #f5c6cb;
         }
         .status.info {
             background: #d1ecf1;
             color: #0c5460;
+            border: 1px solid #bee5eb;
         }
         .loading {
             display: none;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #007bff;
+            border-top: 4px solid #667eea;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 0 auto 15px;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .feature {
+            text-align: center;
+            padding: 15px;
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .feature-text {
+            font-size: 0.9em;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📄 PDF Merger</h1>
-        <p style="text-align: center; color: #666;">Merge two PDF files directly in your browser - no server needed!</p>
+        <p class="subtitle">Merge PDF files directly in your browser - no uploads, no servers, 100% private!</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">Private & Secure</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">Fast Processing</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <div class="feature-text">Works Everywhere</div>
+            </div>
+        </div>
         
         <div class="upload-area" id="uploadArea1">
-            <label for="pdf1" class="upload-label">Choose First PDF</label>
+            <label for="pdf1" class="upload-label">📁 Choose First PDF</label>
             <input type="file" id="pdf1" class="file-input" accept=".pdf">
-            <p>or drag and drop PDF file here</p>
+            <p>or drag and drop your PDF file here</p>
         </div>
         
         <div class="upload-area" id="uploadArea2">
-            <label for="pdf2" class="upload-label">Choose Second PDF</label>
+            <label for="pdf2" class="upload-label">📁 Choose Second PDF</label>
             <input type="file" id="pdf2" class="file-input" accept=".pdf">
-            <p>or drag and drop PDF file here</p>
+            <p>or drag and drop your PDF file here</p>
         </div>
         
         <div id="fileList" class="file-list" style="display: none;">
-            <h3>Selected Files:</h3>
+            <h3>📋 Selected Files:</h3>
             <div id="fileItems"></div>
         </div>
         
-        <button id="mergeBtn" class="merge-btn" disabled>Merge PDFs</button>
+        <button id="mergeBtn" class="merge-btn" disabled>🔄 Merge PDFs</button>
         
         <div id="loading" class="loading">
             <div class="spinner"></div>
-            <p>Merging PDFs...</p>
+            <p>Processing your PDFs...</p>
         </div>
         
         <div id="status"></div>
@@ -209,8 +287,8 @@
                 if (pdf1File) {
                     fileItems.innerHTML += `
                         <div class="file-item">
-                            <span>📄 ${pdf1File.name} (${formatFileSize(pdf1File.size)})</span>
-                            <span>First PDF</span>
+                            <span>📄 ${pdf1File.name}</span>
+                            <span>${formatFileSize(pdf1File.size)}</span>
                         </div>
                     `;
                 }
@@ -218,8 +296,8 @@
                 if (pdf2File) {
                     fileItems.innerHTML += `
                         <div class="file-item">
-                            <span>📄 ${pdf2File.name} (${formatFileSize(pdf2File.size)})</span>
-                            <span>Second PDF</span>
+                            <span>📄 ${pdf2File.name}</span>
+                            <span>${formatFileSize(pdf2File.size)}</span>
                         </div>
                     `;
                 }
@@ -251,15 +329,19 @@
                 loading.style.display = 'block';
                 mergeBtn.disabled = true;
                 status.className = 'status info';
-                status.textContent = 'Processing PDFs...';
+                status.textContent = '🔍 Reading PDF files...';
                 
                 // Read PDF files
                 const pdf1Bytes = await pdf1File.arrayBuffer();
                 const pdf2Bytes = await pdf2File.arrayBuffer();
                 
+                status.textContent = '📖 Loading PDF documents...';
+                
                 // Load PDFs using pdf-lib
                 const pdf1Doc = await PDFLib.PDFDocument.load(pdf1Bytes);
                 const pdf2Doc = await PDFLib.PDFDocument.load(pdf2Bytes);
+                
+                status.textContent = '🔄 Merging documents...';
                 
                 // Create new PDF for merging
                 const mergedPdf = await PDFLib.PDFDocument.create();
@@ -271,6 +353,8 @@
                 // Copy pages from second PDF
                 const copiedPages2 = await mergedPdf.copyPages(pdf2Doc, pdf2Doc.getPageIndices());
                 copiedPages2.forEach((page) => mergedPdf.addPage(page));
+                
+                status.textContent = '💾 Saving merged document...';
                 
                 // Save merged PDF
                 const mergedPdfBytes = await mergedPdf.save();
@@ -289,12 +373,12 @@
                 URL.revokeObjectURL(url);
                 
                 status.className = 'status success';
-                status.textContent = 'PDFs merged successfully! Download started.';
+                status.textContent = '✅ PDFs merged successfully! Download started.';
                 
             } catch (error) {
                 console.error('Error merging PDFs:', error);
                 status.className = 'status error';
-                status.textContent = 'Error merging PDFs: ' + error.message;
+                status.textContent = '❌ Error merging PDFs: ' + error.message;
             } finally {
                 loading.style.display = 'none';
                 mergeBtn.disabled = false;

@@ -12,30 +12,11 @@ A **client-side** PDF merger that runs entirely in your browser! No servers, no 
 ## 🚀 Live Demo
 You can access the service on https://458-nadiraf.github.io/mergepdf/
 
-## 📋 How to Use (After GitHub Deployment)
+## 📋 How to Use
 1. **Visit your GitHub Pages URL** (if you want to try this service https://458-nadiraf.github.io/mergepdf/)
 2. **Upload two PDF files** using drag & drop or file picker
 3. **Click "Merge PDFs"** 
 4. **Download your merged PDF** automatically
-
-## 🚀 Deployment Instructions
-
-### 1. Push to GitHub
-```bash
-git add .
-git commit -m "Initial PDF merger for GitHub Pages"
-git push origin main
-```
-
-### 2. Enable GitHub Pages
-1. Go to your repository on GitHub
-2. Click **Settings** → **Pages**
-3. Under **Source**, select **GitHub Actions**
-4. The workflow will automatically run and deploy your site
-
-### 3. Wait for Deployment
-- Check the **Actions** tab to monitor deployment progress
-- Your site will be live at `https://[username].github.io/[repo-name]/`
 
 ## 🎯 Project Structure
 ```
